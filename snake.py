@@ -1,6 +1,7 @@
 import pygame
 import time
 import random
+import os
 
 pygame.init()
 
@@ -45,11 +46,25 @@ def gameLoop():
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
 
+    if not os.path.exists('high_score.txt'):
+        with open('high_score.txt', 'w') as f:
+            f.write("0")
+
+    with open('high_score.txt', 'r') as f:
+        high_score = int(f.read())
+
+    new_high_score = False
+
     while not game_over:
 
         while game_close == True:
             dis.fill(black)
-            message("You Lost! Press C-Play Again or Q-Quit", red)
+            if new_high_score:
+                message("Congratulations! New High Score! Press C-Play Again or Q-Quits", red)
+            else:
+                message("You Lost! Press C-Play Again or Q-Quit", red)
+            score = score_font.render("High Score: " + str(high_score), True, white)
+            dis.blit(score, [0, 0])
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -106,6 +121,12 @@ def gameLoop():
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+
+        if Length_of_snake - 1 > high_score:
+            high_score = Length_of_snake - 1
+            new_high_score = True
+            with open('high_score.txt', 'w') as f:
+                f.write(str(high_score))
 
         clock.tick(snake_speed)
 
