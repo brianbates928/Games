@@ -64,6 +64,7 @@ def gameLoop():
     while not game_over:
 
         while game_close == True:
+
             dis.fill(black)
             if new_high_score:
                 dis.blit(congratulation_image, (0, 0))  # Display the image as background
@@ -122,7 +123,8 @@ def gameLoop():
 
         score = score_font.render("Score: " + str(Length_of_snake - 1), True, white)
         dis.blit(score, [0, 0])
-
+        hscore = score_font.render("High Score: " + str(high_score), True, white)
+        dis.blit(hscore, [1750, 0])
         pygame.display.update()
 
         if x1 == foodx and y1 == foody:
