@@ -1,5 +1,4 @@
 import pygame
-import time
 import random
 import os
 
@@ -11,6 +10,12 @@ black = (0, 0, 0)
 
 dis_width = 1920
 dis_height = 1080
+congratulation_image = pygame.image.load('highscoreimg.png')
+    # Scale the image to fit the screen
+congratulation_image = pygame.transform.scale(congratulation_image, (dis_width, dis_height))
+loss_image = pygame.image.load('deadsnake.jpg')
+    # Scale the image to fit the screen
+loss_image = pygame.transform.scale(loss_image, (dis_width, dis_height))
 
 dis = pygame.display.set_mode((dis_width, dis_height))
 pygame.display.set_caption('Snake Game')
@@ -28,7 +33,8 @@ def our_snake(snake_block, snake_List):
 
 def message(msg, color):
     mesg = font_style.render(msg, True, color)
-    dis.blit(mesg, [dis_width / 2, dis_height / 2])
+    text_rect = mesg.get_rect(center=(dis_width / 2, dis_height / 2))  # Get the rectangle and center it
+    dis.blit(mesg, text_rect) 
 
 def gameLoop():
     game_over = False
@@ -60,8 +66,10 @@ def gameLoop():
         while game_close == True:
             dis.fill(black)
             if new_high_score:
+                dis.blit(congratulation_image, (0, 0))  # Display the image as background
                 message("Congratulations! New High Score! Press C-Play Again or Q-Quits", red)
             else:
+                dis.blit(loss_image, (0, 0))  # Display the image as background
                 message("You Lost! Press C-Play Again or Q-Quit", red)
             score = score_font.render("High Score: " + str(high_score), True, white)
             dis.blit(score, [0, 0])
