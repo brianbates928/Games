@@ -1,0 +1,17 @@
+<!-- Example using ngSwitch and two buttons. -->
+<div *ngFor="let row of rowsOfKeys" class="keyboard center-items">
+  <span *ngFor="let key of row">
+    <ng-container [ngSwitch]=isKeyUsed(key)>
+      <button *ngSwitchCase=false
+        (click)="virtualKeySubject.next(key)"
+        mat-fab color="accent">
+        {{ key }}
+      </button>
+      <button *ngSwitchCase=true
+        (click)="virtualKeySubject.next(key)"
+        mat-fab color="primary">
+        {{ key }}
+      </button>
+    </ng-container>
+  </span>
+</div>

@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Theme for material.angular.io ->
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// Entire background of page.
+body {
+  background-color: lightblue;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
